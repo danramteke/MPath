@@ -6,6 +6,9 @@ public struct Path: Codable, Equatable, Comparable, Hashable {
   public init(_ path: String) {
     self.path = path
   }
+  public init(url: URL) {
+    self.init(url.absoluteURL.standardizedFileURL.path)
+  }
   public static let separator: String = "/"
   public var components: [String] {
     path.split(separator: Character(Self.separator)).map(String.init)
