@@ -8,7 +8,10 @@ extension Path {
   }
 
   @discardableResult
-  public func touch() -> Bool {
+  public func createEmptyFile() throws -> Bool {
+    if !self.parent().exists {
+      try self.parent().createDirectories()
+    }
     return Self.fileManager.createFile(atPath: self.path, contents: nil)
   }
 
