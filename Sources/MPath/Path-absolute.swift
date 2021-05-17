@@ -1,5 +1,5 @@
 /*
- * The `Path` section of code was heavily borrowed and inspired by [PathKit](https://github.com/kylef/PathKit/blob/master/Sources/PathKit.swift). 
+ * This section of code was heavily borrowed and inspired by [PathKit](https://github.com/kylef/PathKit/blob/master/Sources/PathKit.swift). 
  * The license for the borrowed code is available [here](https://github.com/kylef/PathKit/blob/master/LICENSE).
  */
 
