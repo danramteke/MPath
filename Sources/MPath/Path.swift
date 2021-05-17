@@ -1,6 +1,6 @@
 import Foundation
 
-public struct Path: Codable, Equatable, Comparable {
+public struct Path: Codable, Equatable, Comparable, Hashable {
 
   public let path: String
   public init(_ path: String) {
@@ -25,5 +25,9 @@ public struct Path: Codable, Equatable, Comparable {
 
   public static func < (lhs: Path, rhs: Path) -> Bool {
     lhs.path < rhs.path
+  }
+
+  public func hash(into hasher: inout Hasher) {
+    hasher.combine(path)
   }
 }
