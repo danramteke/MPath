@@ -3,7 +3,7 @@ import Foundation
 public struct Path: Codable, Equatable, Comparable, Hashable {
 
   public let path: String
-  public init(_ path: String) {
+  public init(_ path: String = "") {
     self.path = path
   }
   public init(url: URL) {
@@ -24,6 +24,10 @@ public struct Path: Codable, Equatable, Comparable, Hashable {
 
   public var url: URL {
     URL(fileURLWithPath: path)
+  }
+
+  public var string: String {
+    path
   }
 
   public static func < (lhs: Path, rhs: Path) -> Bool {

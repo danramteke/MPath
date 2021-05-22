@@ -26,4 +26,12 @@ extension Path {
   public static var current: Path {
     .init(Self.fileManager.currentDirectoryPath)
   }
+
+  public func delete() throws {
+     try Self.fileManager.removeItem(atPath: self.path)
+  }
+
+  public func copy(to destination: Path) throws {
+    try Self.fileManager.copyItem(atPath: self.path, toPath: destination.path)
+  }
 }

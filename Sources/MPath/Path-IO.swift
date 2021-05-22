@@ -4,6 +4,18 @@ extension Path {
   public func clear() throws {
     try Data().write(to: self)
   }
+
+  public func write(data: Data) throws {
+    try data.write(to: self)
+  }
+
+  public func read(_ encoding: String.Encoding) throws -> String {
+    try String(contentsOfFile: path, encoding: encoding)
+  }
+
+  public func read() throws -> Data {
+    try Data(contentsOf: self.url, options: [])
+  }
 }
 
 extension Data {
