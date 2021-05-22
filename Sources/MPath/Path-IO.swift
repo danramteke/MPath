@@ -13,11 +13,11 @@ extension Path {
     try data.write(to: self.url)
   }
 
-  public func read(using encoding: String.Encoding) throws -> String {
+  public func read(encoding: String.Encoding) throws -> String {
     try String(contentsOf: self.url, encoding: encoding)
   }
 
-  public func write(string: String, _ encoding: String.Encoding) throws {
+  public func write(_ string: String, encoding: String.Encoding) throws {
     try string.write(to: self.url, atomically: true, encoding: encoding)
   }
 }
@@ -34,11 +34,11 @@ extension Data {
 
 extension String {
   public func write(to path: Path, encoding: String.Encoding = .utf8) throws {
-    try path.write(string: self, encoding)
+    try path.write(self, encoding: encoding)
   }
 
   public init(path: Path, trimming: Bool = true, encoding: String.Encoding = .utf8) throws {
-    let string = try path.read(using: encoding)
+    let string = try path.read(encoding: encoding)
 
     if trimming {
       self = string.trimmingCharacters(in: .whitespacesAndNewlines) 

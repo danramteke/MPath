@@ -13,4 +13,12 @@ extension Path {
 
     return Path(meAbs)
   }
+
+  public var asRelative: Path {
+    guard string.hasPrefix(Path.separator) else {
+      return self
+    }    
+    
+    return Path(String(string[string.index(after: string.startIndex)...]))
+  }
 }

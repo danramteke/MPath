@@ -22,10 +22,24 @@ class IOTests: XCTestCase {
 
   func testCreateFile() throws {
     XCTAssertTrue(tmp.exists)
+
     let dir = tmp + #function
     let file = dir + "empty.txt"
     try file.createEmptyFile()
     XCTAssertTrue(file.exists)
     XCTAssertTrue(file.isFile)
+  }
+
+  func testDeleteFile() throws {
+    XCTAssertTrue(tmp.exists)
+
+    let dir = tmp + #function
+    let file = dir + "empty.txt"
+    try file.createEmptyFile()
+    XCTAssertTrue(file.exists)
+    XCTAssertTrue(file.isFile)
+    try file.delete()
+    XCTAssertFalse(file.exists)
+    XCTAssertFalse(file.isFile)
   }
 }

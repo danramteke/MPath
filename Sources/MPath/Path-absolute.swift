@@ -10,14 +10,14 @@ extension Path {
   /// - Returns: the absolute path in the actual filesystem
   ///
   public func absolute() -> Path {
-    if isAbsolute {
+    if self.isAbsolute {
       return normalize()
     }
 
-  let expandedPath = Path(NSString(string: self.path).expandingTildeInPath)
-  if expandedPath.isAbsolute {
-    return expandedPath.normalize()
-  }
+    let expandedPath = Path(NSString(string: self.path).expandingTildeInPath)
+    if expandedPath.isAbsolute {
+      return expandedPath.normalize()
+    }
 
     return (Path.current + self).normalize()
   }
@@ -29,10 +29,10 @@ extension Path {
   ///   representation.
   ///
   public func normalize() -> Path {
-    return Path(NSString(string: self.path).standardizingPath)
+    Path(NSString(string: self.path).standardizingPath)
   }
 
   public var isAbsolute: Bool {
-    return path.hasPrefix(Path.separator)
+    path.hasPrefix(Path.separator)
   }
 }
