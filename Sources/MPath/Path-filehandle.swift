@@ -4,15 +4,16 @@ extension Path {
   static let fileManager: FileManager = FileManager.default
 
   public func createDirectories() throws {
-    try Self.fileManager.createDirectory(atPath: self.path, withIntermediateDirectories: true)
+    try Self.fileManager.createDirectory(atPath: self.path,
+                                         withIntermediateDirectories: true)
   }
 
-  @discardableResult
-  public func createEmptyFile() throws -> Bool {
+  public func createEmptyFile() throws  {
     if !self.parent().exists {
       try self.parent().createDirectories()
     }
-    return Self.fileManager.createFile(atPath: self.path, contents: nil)
+
+    try self.write(Data())
   }
 
   public func fileHandleForWriting() throws -> FileHandle {
@@ -20,7 +21,7 @@ extension Path {
   } 
 
   public var exists: Bool {
-    Path.fileManager.fileExists(atPath: self.path)
+    Self.fileManager.fileExists(atPath: self.path)
   }
 
   public static var current: Path {

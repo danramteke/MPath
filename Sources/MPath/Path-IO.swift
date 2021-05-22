@@ -2,60 +2,48 @@ import Foundation
 
 extension Path {
   public func clear() throws {
-    try Data().write(to: self)
-  }
-
-  public func write(data: Data) throws {
-    try data.write(to: self)
-  }
-
-  public func read(_ encoding: String.Encoding) throws -> String {
-    try String(contentsOfFile: path, encoding: encoding)
+    try self.write(Data())
   }
 
   public func read() throws -> Data {
     try Data(contentsOf: self.url, options: [])
   }
+
+  public func write(_ data: Data) throws {
+    try data.write(to: self.url)
+  }
+
+  public func read(using encoding: String.Encoding) throws -> String {
+    try String(contentsOf: self.url, encoding: encoding)
+  }
+
+  public func write(string: String, _ encoding: String.Encoding) throws {
+    try string.write(to: self.url, atomically: true, encoding: encoding)
+  }
 }
 
 extension Data {
   public init(path: Path) throws {
-    try self.init(contentsOf: path.url)
+    self = try path.read()
   }
 
   public func write(to path: Path) throws {
-    try self.write(to: path.url, options: .atomic)
+    try path.write(self)
   }
 }
 
 extension String {
-  public func write(to path: Path) throws {
-    try self.data(using: .utf8)!.write(to: path)
+  public func write(to path: Path, encoding: String.Encoding = .utf8) throws {
+    try path.write(string: self, encoding)
   }
 
-  public init(path: Path, trimming: Bool = true) throws {
-    let data = try Data.init(contentsOf: path.url)
-    guard let string = String.init(data: data, encoding: .utf8) else {
-      throw StringEncodingError(path: path, encoding: .utf8)
-    }
+  public init(path: Path, trimming: Bool = true, encoding: String.Encoding = .utf8) throws {
+    let string = try path.read(using: encoding)
+
     if trimming {
       self = string.trimmingCharacters(in: .whitespacesAndNewlines) 
     } else {
       self = string
-    }
-  }
-
-  public struct StringEncodingError: Error, LocalizedError {
-    let path: Path
-    let encoding: String.Encoding
-
-    public var errorDescription: String? {
-      "Couldn't read as \(encoding.description) at \(path.absolute())"
-    }
-
-    init(path: Path, encoding:  String.Encoding) {
-      self.path = path
-      self.encoding = encoding
     }
   }
 }
