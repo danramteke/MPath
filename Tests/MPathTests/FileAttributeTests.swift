@@ -20,6 +20,18 @@ class FileAttributeTests: XCTestCase {
 
 		XCTAssertTrue(try file.isEmpty())
 		XCTAssertEqual(try file.fileSize(), 0)
+
+		try String().write(to: file)
+		XCTAssertTrue(try file.isEmpty())
+		XCTAssertEqual(try file.fileSize(), 0)
+
+		try Data().write(to: file)
+		XCTAssertTrue(try file.isEmpty())
+		XCTAssertEqual(try file.fileSize(), 0)
+
+		try "".write(to: file)
+		XCTAssertTrue(try file.isEmpty())
+		XCTAssertEqual(try file.fileSize(), 0)
 	}
 
 	func testSmallFileSize() throws {
