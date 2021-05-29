@@ -23,8 +23,7 @@ class IOTests: XCTestCase {
   func testCreateFile() throws {
     XCTAssertTrue(tmp.exists)
 
-    let dir = tmp + #function
-    let file = dir + "empty.txt"
+    let file = tmp + "empty.txt"
     try file.createEmptyFile()
     XCTAssertTrue(file.exists)
     XCTAssertTrue(file.isFile)
@@ -33,8 +32,7 @@ class IOTests: XCTestCase {
   func testDeleteFile() throws {
     XCTAssertTrue(tmp.exists)
 
-    let dir = tmp + #function
-    let file = dir + "empty.txt"
+    let file = tmp + "empty.txt"
     try file.createEmptyFile()
     XCTAssertTrue(file.exists)
     XCTAssertTrue(file.isFile)
