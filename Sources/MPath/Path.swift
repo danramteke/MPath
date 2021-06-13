@@ -42,11 +42,12 @@ public struct Path: Codable, Equatable, Comparable, Hashable {
   ///
   /// - Returns: the file extension
   public var `extension`: String? {
-    let pathExtension = NSString(string: path).pathExtension
-    guard !pathExtension.isEmpty else {
-      return nil
-    }
+		guard let dotIndex = path.lastIndex(of: ".") else {
+			return nil
+		}
 
-    return pathExtension
+		let afterDotIndex = path.index(after: dotIndex)
+		let suffix = path.suffix(from: afterDotIndex)
+		return String(suffix)
   }
 }
