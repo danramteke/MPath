@@ -37,4 +37,16 @@ public struct Path: Codable, Equatable, Comparable, Hashable {
   public func hash(into hasher: inout Hasher) {
     hasher.combine(path)
   }
+
+  /// The file extension 
+  ///
+  /// - Returns: the file extension
+  public var `extension`: String? {
+    let pathExtension = NSString(string: path).pathExtension
+    guard !pathExtension.isEmpty else {
+      return nil
+    }
+
+    return pathExtension
+  }
 }
