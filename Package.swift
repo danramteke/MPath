@@ -4,6 +4,9 @@ import PackageDescription
 
 let package = Package(
     name: "MPath",
+    platforms: [
+		.macOS(.v10_15)
+	],
     products: [
         .library(name: "MPath", targets: ["MPath"]),
     ],

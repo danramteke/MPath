@@ -24,10 +24,6 @@ extension Path {
     Self.fileManager.fileExists(atPath: self.path)
   }
 
-  public static var current: Path {
-    .init(Self.fileManager.currentDirectoryPath)
-  }
-
   public func delete() throws {
      try Self.fileManager.removeItem(atPath: self.path)
   }

@@ -12,13 +12,24 @@ final class BasicTests: XCTestCase {
   }
 
   func testURLConversion() {
-    XCTAssertEqual(Path("/bin/sh").url, URL(fileURLWithPath: "/bin/sh"))
+    let path = Path("/bin/sh")
+    let url = URL(fileURLWithPath: "/bin/sh")
+    XCTAssertEqual(path.url, url)
+    XCTAssertEqual(path.url.absoluteString, "file:///bin/sh")
+    XCTAssertEqual(url.absoluteString, "file:///bin/sh")
   }
 
   func testCurrentPath() {
     let actual = Path.current
-    let expected = FileManager.default.currentDirectoryPath
+    let expected = Path(FileManager.default.currentDirectoryPath)
 
-    XCTAssertEqual(actual.path, expected)
+    XCTAssertEqual(actual, expected)
+  }
+
+    func testHomePath() {
+    let actual = Path.home
+    let expected = Path(url: FileManager.default.homeDirectoryForCurrentUser)
+
+    XCTAssertEqual(actual, expected)
   }
 }
