@@ -50,4 +50,27 @@ public struct Path: Codable, Equatable, Comparable, Hashable {
 		let suffix = path.suffix(from: afterDotIndex)
 		return String(suffix)
   }
+
+  public var filename: String {
+    self.components.last ?? ""
+  }
+
+  public var filenameWithoutExtension: String {
+    let filename = self.filename
+
+    guard let dotIndex = filename.lastIndex(of: ".") else {
+			return filename
+		}
+
+		let stem = filename.prefix(upTo: dotIndex)
+		return String(stem)
+  }
+
+  public func path(newExtension: String) -> Path {
+    parent() + filename(newExtension: newExtension)
+  }
+
+  public func filename(newExtension: String) -> String {
+    filenameWithoutExtension + "." + newExtension
+  }
 }
